@@ -1,0 +1,84 @@
+package fag;
+
+import java.util.Scanner;
+
+public class Principal {
+
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner (System.in);
+		
+		int opc=0;
+		int i=0;
+		double saldo=0, dpstqtd=0, sacar=0, lmtsaque=0;
+		int cadsenha;
+		
+		System.out.println("Cadastre a senha:");
+		cadsenha = scanner.nextInt();
+		scanner.nextLine();
+		
+		while (i < 3) {
+		    i++;
+			System.out.println("Digite a sua senha");
+			int senha = scanner.nextInt();
+			scanner.nextLine();
+			if (cadsenha == senha) {
+				i = 4;
+			} else if(i==3){
+			    opc = 4;
+				System.out.println("Conta Bloqueada.");
+			} else {
+			    System.out.println("Senha incorreta, tente novamente");
+			}
+		}
+		
+		while(opc != 4) {
+			System.out.println("Digite 1 para Consultar Saldo\nDigite 2 para Depositar Dinheiro");
+			System.out.println("Digite 3 para Sacar Dinheiro\nDigite 4 para Sair");
+			opc = scanner.nextInt();
+			scanner.nextLine();
+			if (opc == 1) {
+				System.out.println("Consultar Saldo Selecionado\nSaldo = R$ "+ saldo);
+			} if (opc == 2) {
+				System.out.println("Depositar Dinheiro Selecionado\nDigite a quantidade =");
+				dpstqtd = scanner.nextDouble();
+				scanner.nextLine();	
+					if (dpstqtd <= 0) {
+						System.out.println("Não é possivel depositar este valor, por favor tente novamente");
+					}
+					if (dpstqtd > 0) {
+						saldo = deposito(dpstqtd, saldo);
+					}
+			} if (opc == 3) {
+				System.out.println("Sacar dinheiro selecionado\nDigite o valor a ser sacado:");
+				sacar = scanner.nextDouble();
+				scanner.nextLine();
+				    lmtsaque += sacar;
+					if(lmtsaque >= 500 || sacar > 500) {
+						System.out.println("Limite diário de saque excedido (R$ 500)");
+					} else 	if (sacar > 0 && sacar < saldo) {
+						saldo = saque(sacar, saldo);
+					}
+				
+					if (sacar <= 0) {
+					System.out.println("Não é possivel sacar este valor, por favor tente novamente");
+					}
+					if(sacar > saldo) {
+						System.out.println("Saldo insuficiente");
+					} 
+					
+			} if (opc == 4) {
+				System.out.println("Você saiu do sistema");
+			}
+		}
+		scanner.close();
+	}
+	
+	
+	public static double deposito (double dpstqtd, double saldo) {
+	    return (saldo = saldo + dpstqtd);
+	}
+		
+	public static double saque (double sacar, double saldo) {
+		return (saldo = saldo - sacar);
+	}
+}
